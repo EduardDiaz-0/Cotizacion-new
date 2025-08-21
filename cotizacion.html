@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Créditos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="title-container">
+        <h1 class="title">Simulador de Créditos - Fintech</h1>
+    </div>
+    <div class="row gy-4">
+        <div class="col-md-4">
+            <div>
+                <label for="monto" class="form-label">Monto</label>
+                <input type="text" name="monto" id="monto" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <label for="periodo" class="form-label">Periodo de pago</label>
+                <select class="form-select" name="periodo" id="periodo">
+                    <option value="Diario">Diario</option>
+                    <option value="Semanal">Semanal</option>
+                    <option value="Quincenal">Quincenal</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Bimestral">Bimestral</option>
+                    <option value="Trimestral">Trimestral</option>
+                    <option value="Medio_ano">Medio año</option>
+                    <option value="Anual">Anual</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <label for="plazo" class="form-label">Cuotas</label>
+                <input type="text" name="plazo" id="plazo" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <label for="interes" class="form-label">Tasa de interés</label>
+                <input type="text" name="interes" id="interes" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <label for="gracia" class="form-label">Tiempo de gracia</label>
+                <input type="text" name="gracia" id="gracia" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <label for="interestotal" class="form-label">Interés</label>
+                <input type="text" name="interestotal" id="interestotal" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <label for="cuotaindividual" class="form-label">Monto a pagar por Cuota</label>
+                <input type="text" name="cuotaindividual" id="cuotaindividual" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <label for="totalpagar" class="form-label">Total a pagar</label>
+                <input type="text" name="totalpagar" id="totalpagar" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <label for="fechainicio" class="form-label">Fecha inicio de pago</label>
+                <input type="text" name="fechainicio" id="fechainicio" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <label for="ultimafecha" class="form-label">Última fecha de pago</label>
+                <input type="text" name="ultimafecha" id="ultimafecha" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <button type="button" id="calcularButton" class="btn btn-primary">Calcular</button>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
+
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+        }
+        .form-control {
+            border-radius: 10px;
+            border-color: #ced4da;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            display: inline-block;
+        }
+        .title-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    let calcularButton = document.getElementById('calcularButton');
+    let feriados = ["01/06/2024", "05/10/2024", "21/10/2024", "25/12/2024"].map(fecha => new Date(fecha));
+    calcularButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        let monto = parseFloat(document.getElementById('monto').value);
+        let plazo = parseInt(document.getElementById('plazo').value);
+        let interes = parseFloat(document.getElementById('interes').value) / 100;
+        let periodo = document.getElementById('periodo').value;
+        let gracia = parseInt(document.getElementById('gracia').value) || 0;
+        if (!validarDatos(monto, plazo, interes)) return;
+        let dias_del_periodo;
+        switch (periodo) {
+            case 'Diario': dias_del_periodo = 1; break;
+            case 'Semanal': dias_del_periodo = 7; break;
+            case 'Quincenal': dias_del_periodo = 15; break;
+            case 'Mensual': dias_del_periodo = 30; break;
+            case 'Bimestral': dias_del_periodo = 60; break;
+            case 'Trimestral': dias_del_periodo = 90; break;
+            case 'Medio_ano': dias_del_periodo = 180; break;
+            case 'Anual': dias_del_periodo = 365; break;
+            default: dias_del_periodo = 1;
+        }
+        let tiempoEnMeses = Math.ceil((plazo * dias_del_periodo) / 30);
+        let interesTotal = monto * interes * tiempoEnMeses;
+        let totalAPagar = monto + interesTotal;
+        let cuotaIndividual = totalAPagar / plazo;
+
+        document.getElementById('totalpagar').value = "MXN$: " + totalAPagar.toFixed(2);
+        document.getElementById('cuotaindividual').value = "MXN$: " + cuotaIndividual.toFixed(2);
+        document.getElementById('interestotal').value = "MXN$: " + interesTotal.toFixed(2);
+        let fechaActual = new Date();
+        let fechaInicioPago = calcularFechaInicioPago(fechaActual, dias_del_periodo, periodo, gracia);
+        let fechaUltimoPago = calcularFechaFinalPago(fechaInicioPago, plazo, dias_del_periodo, periodo);
+        document.getElementById('fechainicio').value = fechaInicioPago.toLocaleDateString();
+        document.getElementById('ultimafecha').value = fechaUltimoPago.toLocaleDateString();
+    });
+    function calcularFechaInicioPago(fecha, dias_del_periodo, periodo, gracia) {
+        let nuevaFecha = new Date(fecha);
+        if (periodo === 'Diario') {
+            nuevaFecha.setDate(nuevaFecha.getDate() + 1 + gracia);
+        } else if (periodo === 'Semanal') {
+            nuevaFecha.setDate(nuevaFecha.getDate() + 7 + gracia);
+        } else if (periodo === 'Quincenal') {
+            nuevaFecha.setDate(nuevaFecha.getDate() + 15 + gracia);
+        } else if (periodo === 'Mensual') {
+            nuevaFecha.setMonth(nuevaFecha.getMonth() + 1);
+        } else if (periodo === 'Bimestral') {
+            nuevaFecha.setMonth(nuevaFecha.getMonth() + 2);
+        } else if (periodo === 'Trimestral') {
+            nuevaFecha.setMonth(nuevaFecha.getMonth() + 3);
+        } else if (periodo === 'Medio_ano') {
+            nuevaFecha.setMonth(nuevaFecha.getMonth() + 6);
+        } else if (periodo === 'Anual') {
+            nuevaFecha.setFullYear(nuevaFecha.getFullYear() + 1);
+        } else {
+            nuevaFecha.setDate(nuevaFecha.getDate() + dias_del_periodo);
+        }
+        return fechaHabil(nuevaFecha);
+    }
+    function calcularFechaFinalPago(fechaInicio, plazo, dias_del_periodo, periodo) {
+        let fechaFinal = new Date(fechaInicio);
+        for (let i = 0; i < plazo - 1; i++) {
+            if (periodo === 'Diario') {
+                fechaFinal.setDate(fechaFinal.getDate() + 1);
+            } else if (periodo === 'Semanal') {
+                fechaFinal.setDate(fechaFinal.getDate() + 7);
+            } else if (periodo === 'Quincenal') {
+                fechaFinal.setDate(fechaFinal.getDate() + 15);
+            } else if (periodo === 'Mensual') {
+                fechaFinal.setMonth(fechaFinal.getMonth() + 1);
+            } else if (periodo === 'Bimestral') {
+                fechaFinal.setMonth(fechaFinal.getMonth() + 2);
+            } else if (periodo === 'Trimestral') {
+                fechaFinal.setMonth(fechaFinal.getMonth() + 3);
+            } else if (periodo === 'Medio_ano') {
+                fechaFinal.setMonth(fechaFinal.getMonth() + 6);
+            } else if (periodo === 'Anual') {
+                fechaFinal.setFullYear(fechaFinal.getFullYear() + 1);
+            } else {
+                fechaFinal.setDate(fechaFinal.getDate() + dias_del_periodo);
+            }
+            fechaFinal = fechaHabil(fechaFinal);
+        }
+        return fechaFinal;
+    }
+    function fechaHabil(fecha) {
+        while (esDomingoOferiado(fecha)) {
+            fecha.setDate(fecha.getDate() + 1);
+        }
+        return fecha;
+    }
+    function esDomingoOferiado(fecha) {
+        if (fecha.getDay() === 0) return true; // Domingo
+
+        let dateString = fecha.toLocaleDateString();
+        for (let feriado of feriados) {
+            if (feriado.toLocaleDateString() === dateString) {
+                return true;
+            }
+        }
+        return false;
+    }
+    function validarDatos(monto, plazo, interes) {
+        if (isNaN(monto) || monto <= 0) {
+            alert("Por favor, ingrese un monto válido.");
+            return false;
+        }
+        if (isNaN(plazo) || plazo <= 0) {
+            alert("Por favor, ingrese un plazo válido.");
+            return false;
+        }
+        if (isNaN(interes) || interes <= 0) {
+            alert("Por favor, ingrese una tasa de interés válida.");
+            return false;
+        }
+        return true;
+    }
+});
+</script>

@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'Bimestral': dias_del_periodo = 60; break;
             case 'Trimestral': dias_del_periodo = 90; break;
             case 'Medio_ano': dias_del_periodo = 180; break;
-            case 'Anual': dias_del_periodo = 365; break;
+            case 'Anual': dias_del_periodo = 36; break;
             default: dias_del_periodo = 1;
         }
         let tiempoEnMeses = Math.ceil((plazo * dias_del_periodo) / 30);
@@ -301,3 +301,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
